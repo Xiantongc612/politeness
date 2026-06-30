@@ -11,3 +11,10 @@ repos:
         language: system
         stages: [pre-push]
         pass_filenames: false
+      - id: biome format
+        name: biome format
+        entry: devbox run -- bunx biome check --write --no-errors-on-unmatched
+        language: system
+        files: \.(js|jsx|ts|tsx|css|json|html|svg)$
+        stages: [pre-commit]
+        pass_filenames: true

@@ -1,49 +1,66 @@
 import { useState } from "preact/hooks";
-import preactLogo from "./assets/preact.svg";
-import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+type Scores = {
+  politeness: number;
+  reasonable: number;
+  efficient: number;
+};
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+function checkPoliteness(_message: string): Scores {
+  return { politeness: 5, reasonable: 5, efficient: 5 };
+}
+
+function App() {
+  const [message, setMessage] = useState("");
+  const [scores, setScores] = useState<Scores | null>(null);
+
+  function handleSubmit(e: Event) {
+    e.preventDefault();
+    if (!message.trim()) return;
+    setScores(checkPoliteness(message));
   }
 
   return (
     <main class="container">
-      <h1>Welcome to Tauri + Preact</h1>
+      <h1>Politeness Check</h1>
 
-      <div class="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and Preact logos to learn more.</p>
-
-      <form
-        class="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onInput={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
+      <form class="check-form" onSubmit={handleSubmit}>
+        <textarea
+          id="message-input"
+          value={message}
+          onInput={(e) => {
+            setMessage(e.currentTarget.value);
+            setScores(null);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
+          placeholder="Enter your message..."
+          rows={5}
         />
-        <button type="submit">Greet</button>
+        <button type="submit">Check</button>
       </form>
-      <p>{greetMsg}</p>
+
+      {scores && (
+        <div class="scores">
+          <div class="score-card">
+            <span class="score-label">Politeness</span>
+            <span class="score-value">{scores.politeness}/5</span>
+          </div>
+          <div class="score-card">
+            <span class="score-label">Reasonable</span>
+            <span class="score-value">{scores.reasonable}/5</span>
+          </div>
+          <div class="score-card">
+            <span class="score-label">Efficient</span>
+            <span class="score-value">{scores.efficient}/5</span>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

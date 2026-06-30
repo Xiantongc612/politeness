@@ -1,23 +1,20 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.5/.schema/devbox.schema.json",
-  "packages": [
-    "bun",
-    "gitleaks@latest",
-    "pre-commit@latest"
-  ],
+  "packages": ["bun", "gitleaks@latest", "pre-commit@latest"],
   "shell": {
     "init_hook": [],
     "scripts": {
-      "prepare": [
-        "bun install",
-        "pre-commit install"
-      ],
-      "dev": [
-        "bun tauri dev"
-      ],
+      "prepare": ["bun install", "pre-commit install"],
+      "dev": ["bun tauri dev"],
       "test": [
-        "gitleaks git"
-      ]
+        "echo '===== Scan Secrets ====='",
+        "gitleaks git",
+        "echo '\n=====     Lint     ====='",
+        "bun run lint",
+        "echo '\n=====   Bun Tests  ====='",
+        "bun test"
+      ],
+      "format": ["bun run format"]
     }
   }
 }
