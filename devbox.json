@@ -4,7 +4,11 @@
   "shell": {
     "init_hook": [],
     "scripts": {
-      "prepare": ["bun install", "pre-commit install"],
+      "prepare": [
+        "bun install",
+        "pre-commit install",
+        "pre-commit install --hook-type pre-push"
+      ],
       "dev": ["bun tauri dev"],
       "test": [
         "echo '===== Scan Secrets ====='",
