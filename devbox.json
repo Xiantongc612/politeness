@@ -1,21 +1,23 @@
 {
-    "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.2/.schema/devbox.schema.json",
-    "packages": [
-      "bun"
-    ],
-    "shell": {
-      "init_hook": [ ],
-      "scripts": {
-        "prepare": [
-          "bun install"
-        ],
-        "dev": [
-          "bun tauri dev"
-        ],
-        "test": [
-          "echo \"Error: no test specified\" && exit 1"
-        ]
-      }
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.17.5/.schema/devbox.schema.json",
+  "packages": [
+    "bun",
+    "gitleaks@latest",
+    "pre-commit@latest"
+  ],
+  "shell": {
+    "init_hook": [],
+    "scripts": {
+      "prepare": [
+        "bun install",
+        "pre-commit install"
+      ],
+      "dev": [
+        "bun tauri dev"
+      ],
+      "test": [
+        "gitleaks git"
+      ]
     }
   }
-  
+}

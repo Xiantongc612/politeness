@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: full test
+        name: full test
+        entry: devbox run test
+        language: system
+        stages: [pre-push]
+        pass_filenames: false
