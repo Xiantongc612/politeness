@@ -1,0 +1,13 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "bun": {
+      "resolved": "github:NixOS/nixpkgs/7a1a64774a5fd0b0cd39ac95d0e170ace8b266a0?narHash=sha256-N66fYdUuZ9hpdM7jsQ7CUWtLJduqGDyTGCaLR62CXaQ%3D#bun",
+      "source": "nixpkg"
+    },
+    "github:NixOS/nixpkgs/nixpkgs-unstable": {
+      "last_modified": "2026-06-29T19:19:24Z",
+      "resolved": "github:NixOS/nixpkgs/7a1a64774a5fd0b0cd39ac95d0e170ace8b266a0?lastModified=1782760764&narHash=sha256-N66fYdUuZ9hpdM7jsQ7CUWtLJduqGDyTGCaLR62CXaQ%3D"
+    }
+  }
+}
